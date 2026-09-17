@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 
-export default function SignUp() {
+export default function SignUpPage() {
   const [fullName, setFullName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [email, setEmail] = useState("");
@@ -24,6 +24,8 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // ================= PROGRAMMES =================
+
   const programmes = [
     "Civil Engineering",
     "Electrical Engineering",
@@ -36,6 +38,8 @@ export default function SignUp() {
     "Mechanical Engineering",
     "Software Engineering",
   ];
+
+  // ================= YEARS =================
 
   const normalYears = [
     "1st Year",
@@ -57,12 +61,13 @@ export default function SignUp() {
       ? architectureYears
       : normalYears;
 
-  // ================= PASSWORD CHECKS =================
+  // ================= PASSWORD RULES =================
 
   const hasMinimumLength = password.length >= 8;
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
+
   const hasSpecialCharacter =
     /[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;/']/g.test(password);
 
@@ -77,12 +82,14 @@ export default function SignUp() {
     confirmPassword.length > 0 &&
     password === confirmPassword;
 
-  // ================= PROGRAMME =================
+  // ================= PROGRAMME CHANGE =================
 
   function handleProgrammeChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ) {
     setProgramme(event.target.value);
+
+    // Reset year when programme changes
     setYear("");
   }
 
@@ -91,11 +98,13 @@ export default function SignUp() {
   function handleStudentIdChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
+    // Student ID contains numbers only
     const value = event.target.value.replace(/\D/g, "");
+
     setStudentId(value);
   }
 
-  // ================= SUBMIT =================
+  // ================= FORM SUBMISSION =================
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -117,6 +126,7 @@ export default function SignUp() {
       return;
     }
 
+    // Student email must match Student ID
     const expectedEmail =
       `${studentId}.cst@rub.edu.bt`.toLowerCase();
 
@@ -147,13 +157,13 @@ export default function SignUp() {
     }
 
     /*
-      NEXT BACKEND STEP:
+      FRONTEND UI ONLY FOR NOW
 
-      1. Create the account securely.
-      2. Send verification email/OTP to CST email.
-      3. Student verifies ownership.
-      4. Account becomes verified.
-      5. Student can log in.
+      Later the backend will:
+      1. Create the account.
+      2. Send verification to CST email.
+      3. Verify email ownership.
+      4. Activate the account.
     */
 
     setSuccess(
@@ -162,91 +172,91 @@ export default function SignUp() {
   }
 
   return (
-    <main className="min-h-screen bg-[#fffaf8]">
+    <main className="min-h-screen bg-white text-[#202529]">
 
-      {/* ================= HEADER ================= */}
+      {/* ================= NAVBAR ================= */}
 
-      <header className="border-b border-[#ead8da] bg-[#fffaf8]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
+      <header className="border-b border-[#dfe3e6] bg-white">
+
+        <div className="flex h-[72px] items-center justify-between px-5 md:px-7">
+
+          {/* NOVELLE */}
 
           <Link
             href="/"
             className="flex items-center gap-3"
           >
+
             <img
               src="/logo.jpeg"
-              alt="Novelle logo"
-              className="h-14 w-14 rounded-xl object-cover"
+              alt="Novelle"
+              className="h-12 w-12 rounded-full object-cover"
             />
 
-            <div>
-              <h1 className="font-serif text-3xl font-semibold tracking-wide text-[#512d3d]">
-                Novelle
-              </h1>
+            <span className="text-[18px] font-semibold text-[#202529]">
+              Novelle
+            </span>
 
-              <p className="text-[10px] uppercase tracking-[0.28em] text-[#c17d87]">
-                Share Notes. Share Knowledge.
-              </p>
-            </div>
           </Link>
+
+          {/* BACK HOME */}
 
           <Link
             href="/"
-            className="text-sm font-medium text-[#70495a] transition hover:text-[#bd7782]"
+            className="text-[15px] text-[#0f6fc6] hover:underline"
           >
-            ← Back to Home
+            Back to Home
           </Link>
 
         </div>
+
       </header>
 
-      {/* ================= SIGN UP ================= */}
+      {/* ================= SIGN UP PAGE ================= */}
 
-      <section className="px-6 py-12 md:py-16">
+      <section className="mx-auto max-w-[1100px] px-6 py-14">
 
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-[720px]">
 
-          <div className="mb-9 text-center">
+          {/* ================= TITLE ================= */}
 
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c17d87]">
-              Student Registration
-            </p>
+          <div className="mb-8">
 
-            <h2 className="mt-3 font-serif text-4xl font-semibold text-[#4b2938] md:text-5xl">
+            <h1 className="text-[32px] font-bold leading-tight text-[#202529]">
               Create your Novelle account
-            </h2>
+            </h1>
 
-            <p className="mx-auto mt-4 max-w-xl leading-7 text-[#806a72]">
-              Register using your official CST student
-              credentials to access and share academic resources.
+            <p className="mt-3 max-w-[620px] text-[15px] leading-6 text-[#60676d]">
+              Register using your official CST student credentials
+              to access and share academic resources.
             </p>
 
           </div>
 
-          {/* ================= CARD ================= */}
+          {/* ================= FORM CARD ================= */}
 
-          <div className="rounded-[2rem] border border-[#eedcdf] bg-white p-7 shadow-[0_20px_60px_rgba(91,48,66,0.08)] md:p-10">
+          <div className="rounded-xl border border-[#dfe3e6] bg-white p-7">
 
-            {/* CST NOTICE */}
+            {/* ================= STUDENT NOTICE ================= */}
 
-            <div className="mb-8 rounded-2xl border border-[#efd7dc] bg-[#fff4f5] p-5">
+            <div className="mb-7 rounded-lg bg-[#f5f8fa] p-4">
 
-              <div className="flex gap-4">
+              <div className="flex items-start gap-3">
 
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f5dfe3] font-bold text-[#9d5d6c]">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#e4f2fc] text-sm font-bold text-[#0f6fc6]">
                   ✓
                 </div>
 
                 <div>
 
-                  <h3 className="font-semibold text-[#593646]">
-                    CST students only
-                  </h3>
+                  <p className="text-[15px] font-semibold text-[#202529]">
+                    CST Students Only
+                  </p>
 
-                  <p className="mt-1 text-sm leading-6 text-[#806a72]">
-                    Your Student ID must match your official CST
-                    college email. Your email will be verified
-                    before your account receives student access.
+                  <p className="mt-1 text-[13px] leading-5 text-[#697077]">
+                    Registration requires your official CST
+                    student email. Your Student ID must match
+                    the email address used to create your account.
                   </p>
 
                 </div>
@@ -255,17 +265,19 @@ export default function SignUp() {
 
             </div>
 
+            {/* ================= FORM ================= */}
+
             <form onSubmit={handleSubmit}>
 
               <div className="grid gap-6 md:grid-cols-2">
 
-                {/* FULL NAME */}
+                {/* ================= FULL NAME ================= */}
 
                 <div className="md:col-span-2">
 
                   <label
                     htmlFor="fullName"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Full Name
                   </label>
@@ -278,18 +290,18 @@ export default function SignUp() {
                       setFullName(event.target.value)
                     }
                     placeholder="Enter your full name"
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition placeholder:text-[#aa999f] focus:border-[#b87380]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                   />
 
                 </div>
 
-                {/* STUDENT ID */}
+                {/* ================= STUDENT ID ================= */}
 
                 <div>
 
                   <label
                     htmlFor="studentId"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Student ID
                   </label>
@@ -301,18 +313,18 @@ export default function SignUp() {
                     value={studentId}
                     onChange={handleStudentIdChange}
                     placeholder="e.g. 02250359"
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition placeholder:text-[#aa999f] focus:border-[#b87380]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                   />
 
                 </div>
 
-                {/* CST EMAIL */}
+                {/* ================= EMAIL ================= */}
 
                 <div>
 
                   <label
                     htmlFor="email"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     CST College Email
                   </label>
@@ -329,22 +341,22 @@ export default function SignUp() {
                         ? `${studentId}.cst@rub.edu.bt`
                         : "studentid.cst@rub.edu.bt"
                     }
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition placeholder:text-[#aa999f] focus:border-[#b87380]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                   />
 
-                  <p className="mt-2 text-xs text-[#9a8089]">
+                  <p className="mt-2 text-[12px] text-[#777e84]">
                     Example: 02250359.cst@rub.edu.bt
                   </p>
 
                 </div>
 
-                {/* PROGRAMME */}
+                {/* ================= PROGRAMME ================= */}
 
                 <div>
 
                   <label
                     htmlFor="programme"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Programme
                   </label>
@@ -353,7 +365,7 @@ export default function SignUp() {
                     id="programme"
                     value={programme}
                     onChange={handleProgrammeChange}
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition focus:border-[#b87380]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                   >
 
                     <option value="">
@@ -361,7 +373,10 @@ export default function SignUp() {
                     </option>
 
                     {programmes.map((item) => (
-                      <option key={item} value={item}>
+                      <option
+                        key={item}
+                        value={item}
+                      >
                         {item}
                       </option>
                     ))}
@@ -370,13 +385,13 @@ export default function SignUp() {
 
                 </div>
 
-                {/* YEAR */}
+                {/* ================= YEAR ================= */}
 
                 <div>
 
                   <label
                     htmlFor="year"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Year
                   </label>
@@ -388,7 +403,7 @@ export default function SignUp() {
                     onChange={(event) =>
                       setYear(event.target.value)
                     }
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition focus:border-[#b87380] disabled:cursor-not-allowed disabled:bg-[#f5eeee] disabled:text-[#aa999f]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6] disabled:cursor-not-allowed disabled:bg-[#f3f4f5] disabled:text-[#92989d]"
                   >
 
                     <option value="">
@@ -398,7 +413,10 @@ export default function SignUp() {
                     </option>
 
                     {years.map((item) => (
-                      <option key={item} value={item}>
+                      <option
+                        key={item}
+                        value={item}
+                      >
                         {item}
                       </option>
                     ))}
@@ -406,20 +424,20 @@ export default function SignUp() {
                   </select>
 
                   {programme === "Architecture" && (
-                    <p className="mt-2 text-xs text-[#b87380]">
+                    <p className="mt-2 text-[12px] text-[#0f6fc6]">
                       Architecture includes 5th Year.
                     </p>
                   )}
 
                 </div>
 
-                {/* SEMESTER */}
+                {/* ================= SEMESTER ================= */}
 
                 <div className="md:col-span-2">
 
                   <label
                     htmlFor="semester"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Semester
                   </label>
@@ -430,7 +448,7 @@ export default function SignUp() {
                     onChange={(event) =>
                       setSemester(event.target.value)
                     }
-                    className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 text-[#5d4750] outline-none transition focus:border-[#b87380]"
+                    className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                   >
 
                     <option value="">
@@ -455,7 +473,7 @@ export default function SignUp() {
 
                   <label
                     htmlFor="password"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Password
                   </label>
@@ -474,7 +492,7 @@ export default function SignUp() {
                         setPassword(event.target.value)
                       }
                       placeholder="Create a strong password"
-                      className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 pr-20 text-[#5d4750] outline-none transition placeholder:text-[#aa999f] focus:border-[#b87380]"
+                      className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 pr-16 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                     />
 
                     <button
@@ -482,7 +500,7 @@ export default function SignUp() {
                       onClick={() =>
                         setShowPassword(!showPassword)
                       }
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-[#9c5e6c]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[13px] font-medium text-[#0f6fc6] hover:underline"
                     >
                       {showPassword ? "Hide" : "Show"}
                     </button>
@@ -492,13 +510,14 @@ export default function SignUp() {
                   {/* PASSWORD REQUIREMENTS */}
 
                   {password.length > 0 && (
-                    <div className="mt-4 rounded-xl bg-[#fff6f7] p-4">
 
-                      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#75515f]">
-                        Password must contain
+                    <div className="mt-4 rounded-lg border border-[#e0e4e7] bg-[#f8f9fa] p-4">
+
+                      <p className="mb-3 text-[13px] font-semibold text-[#343a40]">
+                        Password requirements
                       </p>
 
-                      <div className="space-y-2 text-sm">
+                      <div className="space-y-2">
 
                         <PasswordRule
                           valid={hasMinimumLength}
@@ -528,6 +547,7 @@ export default function SignUp() {
                       </div>
 
                     </div>
+
                   )}
 
                 </div>
@@ -538,7 +558,7 @@ export default function SignUp() {
 
                   <label
                     htmlFor="confirmPassword"
-                    className="mb-2 block text-sm font-semibold text-[#5b3545]"
+                    className="mb-2 block text-[14px] font-semibold text-[#343a40]"
                   >
                     Confirm Password
                   </label>
@@ -559,7 +579,7 @@ export default function SignUp() {
                         )
                       }
                       placeholder="Re-enter your password"
-                      className="w-full rounded-xl border border-[#dec7cc] bg-[#fffafa] px-4 py-3.5 pr-20 text-[#5d4750] outline-none transition placeholder:text-[#aa999f] focus:border-[#b87380]"
+                      className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 pr-16 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                     />
 
                     <button
@@ -569,7 +589,7 @@ export default function SignUp() {
                           !showConfirmPassword
                         )
                       }
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-[#9c5e6c]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[13px] font-medium text-[#0f6fc6] hover:underline"
                     >
                       {showConfirmPassword
                         ? "Hide"
@@ -579,40 +599,44 @@ export default function SignUp() {
                   </div>
 
                   {confirmPassword.length > 0 && (
+
                     <p
-                      className={`mt-3 text-sm font-medium ${
+                      className={`mt-3 text-[13px] font-medium ${
                         passwordsMatch
-                          ? "text-green-600"
-                          : "text-red-600"
+                          ? "text-[#287a3d]"
+                          : "text-[#a52828]"
                       }`}
                     >
                       {passwordsMatch
                         ? "✓ Passwords match"
                         : "✕ Passwords do not match"}
                     </p>
+
                   )}
 
                 </div>
 
               </div>
 
-              {/* EXPECTED CST EMAIL */}
+              {/* ================= EXPECTED EMAIL ================= */}
 
               {studentId && (
-                <div className="mt-6 rounded-xl bg-[#faf2f3] px-4 py-3">
 
-                  <p className="text-xs font-medium text-[#9c6975]">
-                    Expected college email
+                <div className="mt-6 rounded-lg border border-[#dce6ed] bg-[#f5f8fa] px-4 py-3">
+
+                  <p className="text-[12px] text-[#697077]">
+                    Expected CST college email
                   </p>
 
-                  <p className="mt-1 break-all text-sm font-semibold text-[#62404f]">
+                  <p className="mt-1 break-all text-[14px] font-semibold text-[#0f6fc6]">
                     {studentId}.cst@rub.edu.bt
                   </p>
 
                 </div>
+
               )}
 
-              {/* TERMS */}
+              {/* ================= TERMS ================= */}
 
               <label className="mt-6 flex cursor-pointer items-start gap-3">
 
@@ -622,10 +646,10 @@ export default function SignUp() {
                   onChange={(event) =>
                     setAgree(event.target.checked)
                   }
-                  className="mt-1 h-4 w-4 accent-[#5a3042]"
+                  className="mt-1 h-4 w-4 accent-[#0f6fc6]"
                 />
 
-                <span className="text-sm leading-6 text-[#806a72]">
+                <span className="text-[14px] leading-6 text-[#555d63]">
                   I confirm that the information provided belongs
                   to me and I agree to the Novelle Terms and
                   Privacy Policy.
@@ -633,45 +657,66 @@ export default function SignUp() {
 
               </label>
 
-              {/* ERROR */}
+              {/* ================= ERROR ================= */}
 
               {error && (
-                <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+
+                <div className="mt-5 rounded-md border border-[#e5a5a5] bg-[#fff4f4] px-4 py-3 text-[14px] text-[#a52828]">
                   {error}
                 </div>
+
               )}
 
-              {/* SUCCESS */}
+              {/* ================= SUCCESS ================= */}
 
               {success && (
-                <div className="mt-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+
+                <div className="mt-5 rounded-md border border-[#a7d8b3] bg-[#f1faf3] px-4 py-3 text-[14px] text-[#287a3d]">
                   {success}
                 </div>
+
               )}
 
-              {/* CREATE ACCOUNT */}
+              {/* ================= CREATE ACCOUNT ================= */}
 
               <button
                 type="submit"
-                className="mt-8 w-full rounded-xl bg-[#5a3042] px-6 py-4 font-semibold text-white transition hover:bg-[#704056]"
+                className="mt-7 w-full rounded-md bg-[#0f6fc6] px-5 py-3 text-[15px] font-medium text-white hover:bg-[#0b5fae]"
               >
                 Create Student Account
               </button>
 
-              <p className="mt-6 text-center text-sm text-[#806a72]">
-                Already have an account?{" "}
+              {/* ================= LOGIN ================= */}
 
-                <Link
-                  href="/login"
-                  className="font-semibold text-[#9c5e6c] hover:text-[#6d4052]"
-                >
-                  Login
-                </Link>
-              </p>
+              <div className="my-7 flex items-center gap-4">
+
+                <div className="h-px flex-1 bg-[#dfe3e6]" />
+
+                <span className="text-[12px] text-[#777e84]">
+                  Already registered?
+                </span>
+
+                <div className="h-px flex-1 bg-[#dfe3e6]" />
+
+              </div>
+
+              <Link
+                href="/login"
+                className="block w-full rounded-md border border-[#0f6fc6] px-5 py-3 text-center text-[15px] font-medium text-[#0f6fc6] hover:bg-[#f4f9fd]"
+              >
+                Login to Novelle
+              </Link>
 
             </form>
 
           </div>
+
+          {/* FOOTNOTE */}
+
+          <p className="mt-6 text-center text-[13px] text-[#747b81]">
+            College of Science and Technology Academic Resource
+            Sharing Platform
+          </p>
 
         </div>
 
@@ -681,7 +726,7 @@ export default function SignUp() {
   );
 }
 
-/* ================= PASSWORD RULE COMPONENT ================= */
+/* ================= PASSWORD RULE ================= */
 
 function PasswordRule({
   valid,
@@ -692,17 +737,21 @@ function PasswordRule({
 }) {
   return (
     <div
-      className={`flex items-center gap-2 ${
+      className={`flex items-center gap-2 text-[13px] ${
         valid
-          ? "text-green-600"
-          : "text-[#9a7e87]"
+          ? "text-[#287a3d]"
+          : "text-[#737a80]"
       }`}
     >
-      <span className="w-4 font-bold">
+
+      <span className="w-4 font-semibold">
         {valid ? "✓" : "○"}
       </span>
 
-      <span>{text}</span>
+      <span>
+        {text}
+      </span>
+
     </div>
   );
 }

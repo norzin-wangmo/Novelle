@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [selectedProgramme, setSelectedProgramme] = useState("");
@@ -8,7 +9,8 @@ export default function Home() {
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedType, setSelectedType] = useState("");
 
-  // All current CST bachelor's programmes
+  // ================= PROGRAMMES =================
+
   const programmes = [
     "Civil Engineering",
     "Electrical Engineering",
@@ -22,7 +24,8 @@ export default function Home() {
     "Software Engineering",
   ];
 
-  // All programmes except Architecture are 4 years
+  // ================= YEARS =================
+
   const normalYears = [
     "1st Year",
     "2nd Year",
@@ -30,7 +33,6 @@ export default function Home() {
     "4th Year",
   ];
 
-  // Architecture is 5 years
   const architectureYears = [
     "1st Year",
     "2nd Year",
@@ -38,6 +40,8 @@ export default function Home() {
     "4th Year",
     "5th Year",
   ];
+
+  // ================= RESOURCE TYPES =================
 
   const resourceTypes = [
     "Lecture Notes",
@@ -59,8 +63,6 @@ export default function Home() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) {
     setSelectedProgramme(event.target.value);
-
-    // Reset year whenever programme changes
     setSelectedYear("");
   }
 
@@ -71,175 +73,206 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#fffaf8] text-[#4b2938]">
+    <main className="min-h-screen bg-white text-[#202529]">
 
-      {/* =========================
+      {/* ==================================================
           NAVBAR
-      ========================== */}
+      ================================================== */}
 
-      <header className="border-b border-[#ead8da] bg-[#fffaf8]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
+      <header className="sticky top-0 z-50 border-b border-[#dfe3e6] bg-white">
+        <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 md:px-8">
 
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <img
-              src="/logo.jpeg"
-              alt="Novelle logo"
-              className="h-14 w-14 rounded-xl object-cover"
-            />
+          {/* LEFT */}
 
-            <div>
-              <h1 className="font-serif text-3xl font-semibold tracking-wide text-[#512d3d]">
+          <div className="flex items-center">
+
+            <Link
+              href="/"
+              className="mr-9 flex items-center gap-3"
+            >
+              <img
+                src="/logo.jpeg"
+                alt="Novelle"
+                className="h-11 w-11 rounded-full object-cover"
+              />
+
+              <span className="text-[18px] font-semibold text-[#202529]">
                 Novelle
-              </h1>
+              </span>
+            </Link>
 
-              <p className="text-[10px] uppercase tracking-[0.28em] text-[#c17d87]">
-                Share Notes. Share Knowledge.
-              </p>
-            </div>
+            <nav className="hidden items-center gap-7 md:flex">
+
+              <a
+                href="#home"
+                className="text-[15px] text-[#30363b] hover:text-[#0f6fc6]"
+              >
+                Home
+              </a>
+
+              <a
+                href="#resources"
+                className="text-[15px] text-[#30363b] hover:text-[#0f6fc6]"
+              >
+                Resources
+              </a>
+
+              <a
+                href="#about"
+                className="text-[15px] text-[#30363b] hover:text-[#0f6fc6]"
+              >
+                About
+              </a>
+
+            </nav>
+
           </div>
 
-          {/* Navigation */}
-          <nav className="hidden items-center gap-8 md:flex">
-            <a
-              href="#home"
-              className="text-sm font-medium text-[#4b3941] transition hover:text-[#bd7782]"
-            >
-              Home
-            </a>
+          {/* RIGHT */}
 
-            <a
-              href="#resources"
-              className="text-sm font-medium text-[#4b3941] transition hover:text-[#bd7782]"
-            >
-              Resources
-            </a>
+          <div className="flex items-center gap-3">
 
-            <a
-              href="#about"
-              className="text-sm font-medium text-[#4b3941] transition hover:text-[#bd7782]"
+            <Link
+              href="/signup"
+              className="rounded-md px-4 py-2 text-[14px] font-medium text-[#0f6fc6] hover:bg-[#f1f7fb]"
             >
-              About
-            </a>
-
-            <button className="rounded-lg border border-[#7a5262] px-6 py-2.5 text-sm font-medium text-[#6b4353] transition hover:bg-[#f8eaec]">
               Sign Up
-            </button>
+            </Link>
 
-            <button className="rounded-lg bg-[#512d3d] px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#693a4e]">
+            <Link
+              href="/login"
+              className="rounded-md bg-[#0f6fc6] px-5 py-2.5 text-[14px] font-medium text-white hover:bg-[#0b5fae]"
+            >
               Login
-            </button>
-          </nav>
+            </Link>
+
+          </div>
+
         </div>
       </header>
 
-      {/* =========================
-          HERO SECTION
-      ========================== */}
+      {/* ==================================================
+          HERO
+      ================================================== */}
 
       <section
         id="home"
-        className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-20 md:px-10 lg:grid-cols-2 lg:py-28"
+        className="border-b border-[#e3e6e8] bg-white"
       >
 
-        {/* LEFT SIDE */}
-        <div>
-          <div className="mb-7 inline-block rounded-full border border-[#efcdd2] bg-[#fff1f2] px-5 py-2 text-sm font-semibold text-[#b76f7a]">
-            CST Academic Resource Sharing Platform
-          </div>
+        <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-6 py-16 md:px-8 lg:grid-cols-2 lg:py-20">
 
-          <h2 className="max-w-3xl font-serif text-5xl font-semibold leading-[1.05] text-[#4b2938] md:text-6xl lg:text-7xl">
-            Your academic{" "}
-            <span className="text-[#c77f89]">
-              resources
-            </span>
-            , all in one place.
-          </h2>
+          {/* LEFT */}
 
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#755f68]">
-            Find, share, preview and download academic resources
-            created for students of the College of Science and
-            Technology.
-          </p>
+          <div>
 
-          <div className="mt-9 flex flex-wrap gap-4">
+            <p className="mb-4 text-[15px] font-medium text-[#0f6fc6]">
+              CST Academic Resource Sharing Platform
+            </p>
 
-            <button
-              onClick={scrollToResources}
-              className="rounded-xl bg-[#5a3042] px-7 py-4 font-semibold text-white shadow-sm transition hover:bg-[#704056]"
-            >
-              Explore Resources
-            </button>
+            <h1 className="text-[42px] font-bold leading-[1.15] tracking-[-0.7px] text-[#202529] md:text-[52px]">
+              Your academic resources,
+              <span className="text-[#0f6fc6]">
+                {" "}all in one place.
+              </span>
+            </h1>
 
-            <button className="rounded-xl border border-[#9d7482] bg-white px-7 py-4 font-semibold text-[#684153] transition hover:bg-[#fff1f2]">
-              Upload Resource
-            </button>
+            <p className="mt-6 max-w-[620px] text-[17px] leading-7 text-[#5f666c]">
+              Find, share, preview and download academic resources
+              created for students of the College of Science and
+              Technology.
+            </p>
 
-          </div>
-        </div>
+            <div className="mt-8 flex flex-wrap gap-3">
 
-        {/* RIGHT SIDE LOGO */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-md rounded-[2rem] border border-[#eedcdf] bg-white p-6 shadow-[0_20px_60px_rgba(91,48,66,0.10)]">
+              <button
+                onClick={scrollToResources}
+                className="rounded-md bg-[#0f6fc6] px-6 py-3 text-[15px] font-medium text-white hover:bg-[#0b5fae]"
+              >
+                Explore Resources
+              </button>
 
-            <img
-              src="/logo.jpeg"
-              alt="Novelle logo"
-              className="w-full rounded-[1.5rem] object-cover"
-            />
+              <Link
+                href="/upload"
+                className="rounded-md border border-[#bfc5c9] bg-white px-6 py-3 text-[15px] font-medium text-[#30363b] hover:bg-[#f7f8f9]"
+              >
+                Upload Resource
+              </Link>
+
+            </div>
 
           </div>
+
+          {/* RIGHT — NOVELLE LOGO */}
+
+          <div className="flex justify-center lg:justify-end">
+
+            <div className="w-full max-w-[400px] rounded-xl border border-[#dfe3e6] bg-white p-5">
+
+              <img
+                src="/logo.jpeg"
+                alt="Novelle"
+                className="w-full rounded-lg object-cover"
+              />
+
+            </div>
+
+          </div>
+
         </div>
 
       </section>
 
-      {/* =========================
-          RESOURCE SECTION
-      ========================== */}
+      {/* ==================================================
+          RESOURCES
+      ================================================== */}
 
       <section
         id="resources"
-        className="border-t border-[#f0dfe1] bg-white px-6 py-20 md:px-10"
+        className="bg-white px-6 py-16 md:px-8"
       >
 
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1200px]">
 
-          {/* Heading */}
-          <div className="mb-12 text-center">
+          {/* RESOURCE HEADING */}
 
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#c17d87]">
+          <div className="mb-10 text-center">
+
+            <p className="text-[14px] font-medium text-[#0f6fc6]">
               Academic Library
             </p>
 
-            <h2 className="font-serif text-4xl font-semibold text-[#4b2938] md:text-5xl">
+            <h2 className="mt-2 text-[32px] font-bold text-[#202529]">
               Find your resources
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-[#806a72]">
+            <p className="mx-auto mt-3 max-w-[650px] text-[15px] leading-6 text-[#626970]">
               Select your programme, year, semester and resource
               type to find academic materials relevant to you.
             </p>
 
           </div>
 
-          {/* FILTER CARD */}
-          <div className="rounded-[2rem] border border-[#eedcdf] bg-[#fffaf8] p-7 shadow-sm md:p-10">
+          {/* ==================================================
+              FILTER BOX
+          ================================================== */}
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-xl border border-[#dfe3e6] bg-white p-6 md:p-8">
 
-              {/* =====================
-                  PROGRAMME
-              ====================== */}
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+
+              {/* PROGRAMME */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#5b3545]">
+
+                <label className="mb-2 block text-[14px] font-semibold text-[#343a40]">
                   Programme
                 </label>
 
                 <select
                   value={selectedProgramme}
                   onChange={handleProgrammeChange}
-                  className="w-full rounded-xl border border-[#dec7cc] bg-white px-4 py-3 text-[#5d4750] outline-none transition focus:border-[#b87380]"
+                  className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[14px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                 >
 
                   <option value="">
@@ -256,24 +289,24 @@ export default function Home() {
                   ))}
 
                 </select>
+
               </div>
 
-              {/* =====================
-                  YEAR
-              ====================== */}
+              {/* YEAR */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#5b3545]">
+
+                <label className="mb-2 block text-[14px] font-semibold text-[#343a40]">
                   Year
                 </label>
 
                 <select
                   value={selectedYear}
+                  disabled={!selectedProgramme}
                   onChange={(event) =>
                     setSelectedYear(event.target.value)
                   }
-                  disabled={!selectedProgramme}
-                  className="w-full rounded-xl border border-[#dec7cc] bg-white px-4 py-3 text-[#5d4750] outline-none transition focus:border-[#b87380] disabled:cursor-not-allowed disabled:bg-[#f5eeee] disabled:text-[#aa999f]"
+                  className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[14px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6] disabled:cursor-not-allowed disabled:bg-[#f3f4f5] disabled:text-[#92989d]"
                 >
 
                   <option value="">
@@ -293,21 +326,19 @@ export default function Home() {
 
                 </select>
 
-                {/* Architecture message */}
                 {selectedProgramme === "Architecture" && (
-                  <p className="mt-2 text-xs text-[#b87380]">
+                  <p className="mt-2 text-[12px] text-[#0f6fc6]">
                     Architecture includes 5th Year.
                   </p>
                 )}
 
               </div>
 
-              {/* =====================
-                  SEMESTER
-              ====================== */}
+              {/* SEMESTER */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#5b3545]">
+
+                <label className="mb-2 block text-[14px] font-semibold text-[#343a40]">
                   Semester
                 </label>
 
@@ -316,7 +347,7 @@ export default function Home() {
                   onChange={(event) =>
                     setSelectedSemester(event.target.value)
                   }
-                  className="w-full rounded-xl border border-[#dec7cc] bg-white px-4 py-3 text-[#5d4750] outline-none transition focus:border-[#b87380]"
+                  className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[14px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                 >
 
                   <option value="">
@@ -332,14 +363,14 @@ export default function Home() {
                   </option>
 
                 </select>
+
               </div>
 
-              {/* =====================
-                  RESOURCE TYPE
-              ====================== */}
+              {/* RESOURCE TYPE */}
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#5b3545]">
+
+                <label className="mb-2 block text-[14px] font-semibold text-[#343a40]">
                   Resource Type
                 </label>
 
@@ -348,7 +379,7 @@ export default function Home() {
                   onChange={(event) =>
                     setSelectedType(event.target.value)
                   }
-                  className="w-full rounded-xl border border-[#dec7cc] bg-white px-4 py-3 text-[#5d4750] outline-none transition focus:border-[#b87380]"
+                  className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[14px] text-[#343a40] outline-none focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                 >
 
                   <option value="">
@@ -365,52 +396,51 @@ export default function Home() {
                   ))}
 
                 </select>
+
               </div>
 
             </div>
 
-            {/* SEARCH BUTTON */}
+            {/* SEARCH */}
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-6 flex justify-center">
 
-              <button className="rounded-xl bg-[#5a3042] px-10 py-3.5 font-semibold text-white transition hover:bg-[#704056]">
+              <button className="rounded-md bg-[#0f6fc6] px-8 py-3 text-[14px] font-medium text-white hover:bg-[#0b5fae]">
                 Search Resources
               </button>
 
             </div>
 
-            {/* =====================
-                CURRENT SELECTION
-            ====================== */}
+            {/* CURRENT SELECTION */}
 
             {selectedProgramme && (
 
-              <div className="mt-8 rounded-2xl border border-[#efdadd] bg-white p-5">
+              <div className="mt-7 border-t border-[#e1e4e6] pt-5">
 
-                <p className="text-sm font-semibold text-[#b87380]">
+                <p className="mb-3 text-[13px] font-semibold text-[#454b50]">
                   Your selection
                 </p>
 
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
 
-                  <span className="rounded-full bg-[#f9e8eb] px-4 py-2 text-sm text-[#6b4050]">
+                  <span className="rounded-md bg-[#e8f3fb] px-3 py-1.5 text-[13px] text-[#0f6fc6]">
                     {selectedProgramme}
                   </span>
 
                   {selectedYear && (
-                    <span className="rounded-full bg-[#f9e8eb] px-4 py-2 text-sm text-[#6b4050]">
+                    <span className="rounded-md bg-[#e8f3fb] px-3 py-1.5 text-[13px] text-[#0f6fc6]">
                       {selectedYear}
                     </span>
                   )}
 
                   {selectedSemester && (
-                    <span className="rounded-full bg-[#f9e8eb] px-4 py-2 text-sm text-[#6b4050]">
+                    <span className="rounded-md bg-[#e8f3fb] px-3 py-1.5 text-[13px] text-[#0f6fc6]">
                       Semester {selectedSemester}
                     </span>
                   )}
 
                   {selectedType && (
-                    <span className="rounded-full bg-[#f9e8eb] px-4 py-2 text-sm text-[#6b4050]">
+                    <span className="rounded-md bg-[#e8f3fb] px-3 py-1.5 text-[13px] text-[#0f6fc6]">
                       {selectedType}
                     </span>
                   )}
@@ -423,21 +453,27 @@ export default function Home() {
 
           </div>
 
-          {/* =========================
-              RESOURCE TYPE CARDS
-          ========================== */}
+          {/* ==================================================
+              BROWSE RESOURCE TYPES
+          ================================================== */}
 
-          <div className="mt-16">
+          <div className="mt-14">
 
-            <h3 className="text-center font-serif text-3xl font-semibold text-[#4b2938]">
-              Browse by resource type
-            </h3>
+            <div className="mb-7 text-center">
 
-            <p className="mx-auto mt-3 max-w-xl text-center text-[#806a72]">
-              Quickly browse the type of academic material you need.
-            </p>
+              <h3 className="text-[26px] font-bold text-[#202529]">
+                Browse by resource type
+              </h3>
 
-            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <p className="mt-2 text-[14px] text-[#697077]">
+                Quickly browse the type of academic material you need.
+              </p>
+
+            </div>
+
+            {/* 4 × 2 GRID */}
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
               {resourceTypes.map((type) => (
 
@@ -446,20 +482,29 @@ export default function Home() {
                   onClick={() =>
                     setSelectedType(type)
                   }
-                  className="rounded-2xl border border-[#eedcdf] bg-[#fffaf8] p-6 text-left transition hover:-translate-y-1 hover:border-[#d5a8b0] hover:shadow-md"
+                  className={`min-h-[150px] rounded-xl border bg-white p-5 text-left transition hover:border-[#8ebfe2] hover:shadow-sm ${
+                    selectedType === type
+                      ? "border-[#0f6fc6] bg-[#f6fbff]"
+                      : "border-[#dfe3e6]"
+                  }`}
                 >
 
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#f7e3e6] text-lg text-[#8a5366]">
-                    ✦
+                  {/* ICON */}
+
+                  <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-md bg-[#e4f2fc] text-[18px] font-semibold text-[#0f6fc6]">
+                    +
                   </div>
 
-                  <h4 className="font-semibold text-[#523141]">
+                  {/* TITLE */}
+
+                  <h4 className="text-[15px] font-semibold text-[#252a30]">
                     {type}
                   </h4>
 
-                  <p className="mt-2 text-sm leading-6 text-[#846d76]">
-                    Browse {type.toLowerCase()} shared by CST
-                    students.
+                  {/* DESCRIPTION */}
+
+                  <p className="mt-2 text-[13px] leading-5 text-[#6c7379]">
+                    Browse {type.toLowerCase()} shared by CST students.
                   </p>
 
                 </button>
@@ -474,59 +519,59 @@ export default function Home() {
 
       </section>
 
-      {/* =========================
-          ABOUT
-      ========================== */}
+      {/* ==================================================
+          ABOUT NOVELLE
+      ================================================== */}
 
       <section
         id="about"
-        className="border-t border-[#f0dfe1] bg-[#fff7f5] px-6 py-20 md:px-10"
+        className="mt-12 border-t border-[#dfe3e6] bg-[#f8f9fa] px-6 py-16 md:px-8"
       >
 
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-[850px] text-center">
 
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c17d87]">
+          <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-[#0f6fc6]">
             About Novelle
           </p>
 
-          <h2 className="mt-3 font-serif text-4xl font-semibold text-[#4b2938]">
+          <h2 className="mt-3 text-[30px] font-bold text-[#202529]">
             Share notes. Share knowledge.
           </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#79636c]">
+          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-7 text-[#60676d]">
             Novelle is an academic resource sharing platform
             designed for students of the College of Science and
-            Technology to discover, upload and share useful
-            learning materials in one organized place.
+            Technology to discover, upload and share useful learning
+            materials in one organized place.
           </p>
 
         </div>
 
       </section>
 
-      {/* =========================
+      {/* ==================================================
           FOOTER
-      ========================== */}
+      ================================================== */}
 
-      <footer className="bg-[#4b2938] px-6 py-10 text-white">
+      <footer className="border-t border-[#dfe3e6] bg-white">
 
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row">
+        <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-5 px-6 py-7 md:flex-row">
 
           <div className="flex items-center gap-3">
 
             <img
               src="/logo.jpeg"
-              alt="Novelle logo"
-              className="h-11 w-11 rounded-lg object-cover"
+              alt="Novelle"
+              className="h-9 w-9 rounded-full object-cover"
             />
 
             <div>
 
-              <p className="font-serif text-xl font-semibold">
+              <p className="text-[14px] font-semibold text-[#202529]">
                 Novelle
               </p>
 
-              <p className="text-xs tracking-widest text-[#e4bdc4]">
+              <p className="text-[11px] text-[#747b81]">
                 SHARE NOTES. SHARE KNOWLEDGE.
               </p>
 
@@ -534,8 +579,8 @@ export default function Home() {
 
           </div>
 
-          <p className="text-sm text-[#dec5cb]">
-            Academic Resource Sharing Platform
+          <p className="text-[12px] text-[#747b81]">
+            CST Academic Resource Sharing Platform
           </p>
 
         </div>
