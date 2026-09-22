@@ -331,12 +331,13 @@ export default function DashboardPage() {
 
           <div className="flex items-center gap-5">
 
-            <button
+            <Link
+              href="/notifications"
               className="text-[14px] text-[#60676d] hover:text-[#0f6fc6]"
               title="Notifications"
             >
               Notifications
-            </button>
+            </Link>
 
             <div className="h-6 w-px bg-[#dfe3e6]" />
 
