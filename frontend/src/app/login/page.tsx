@@ -2,27 +2,30 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
-    setSuccess("");
 
+    // Check empty fields
     if (!email || !password) {
       setError("Please enter your CST email and password.");
       return;
     }
 
+    // CST student email format
+    // Example: 02250359.cst@rub.edu.bt
     const studentEmailPattern =
       /^[0-9]+\.cst@rub\.edu\.bt$/i;
 
@@ -33,9 +36,12 @@ export default function LoginPage() {
       return;
     }
 
-    setSuccess(
-      "Login details accepted for the UI demo. Authentication will be connected later."
-    );
+    // =====================================================
+    // FRONTEND DEMO LOGIN
+    // Real authentication will be connected later.
+    // =====================================================
+
+    router.push("/dashboard");
   }
 
   return (
@@ -71,13 +77,11 @@ export default function LoginPage() {
       {/* ================= LOGIN ================= */}
 
       <section className="mx-auto max-w-[1100px] px-6 py-14">
-
         <div className="mx-auto max-w-[470px]">
 
           {/* TITLE */}
 
           <div className="mb-8">
-
             <h1 className="text-[32px] font-bold leading-tight text-[#202529]">
               Login to Novelle
             </h1>
@@ -86,7 +90,6 @@ export default function LoginPage() {
               Access academic resources shared by the CST student
               community.
             </p>
-
           </div>
 
           {/* LOGIN CARD */}
@@ -96,7 +99,6 @@ export default function LoginPage() {
             {/* STUDENT NOTICE */}
 
             <div className="mb-7 rounded-lg bg-[#f5f8fa] p-4">
-
               <div className="flex items-start gap-3">
 
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#e4f2fc] text-sm font-bold text-[#0f6fc6]">
@@ -104,7 +106,6 @@ export default function LoginPage() {
                 </div>
 
                 <div>
-
                   <p className="text-[15px] font-semibold text-[#202529]">
                     CST Student Access
                   </p>
@@ -112,11 +113,9 @@ export default function LoginPage() {
                   <p className="mt-1 text-[13px] leading-5 text-[#697077]">
                     Login using your registered CST college email.
                   </p>
-
                 </div>
 
               </div>
-
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -124,7 +123,6 @@ export default function LoginPage() {
               {/* EMAIL */}
 
               <div>
-
                 <label
                   htmlFor="email"
                   className="mb-2 block text-[14px] font-semibold text-[#343a40]"
@@ -142,7 +140,6 @@ export default function LoginPage() {
                   placeholder="02250359.cst@rub.edu.bt"
                   className="w-full rounded-md border border-[#cfd4d8] bg-white px-3 py-3 text-[15px] text-[#343a40] outline-none placeholder:text-[#8b9298] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
                 />
-
               </div>
 
               {/* PASSWORD */}
@@ -191,7 +188,6 @@ export default function LoginPage() {
                   </button>
 
                 </div>
-
               </div>
 
               {/* REMEMBER ME */}
@@ -221,15 +217,7 @@ export default function LoginPage() {
                 </div>
               )}
 
-              {/* SUCCESS */}
-
-              {success && (
-                <div className="mt-5 rounded-md border border-[#a7d8b3] bg-[#f1faf3] px-4 py-3 text-[14px] text-[#287a3d]">
-                  {success}
-                </div>
-              )}
-
-              {/* LOGIN */}
+              {/* LOGIN BUTTON */}
 
               <button
                 type="submit"
@@ -271,7 +259,6 @@ export default function LoginPage() {
           </p>
 
         </div>
-
       </section>
 
     </main>
