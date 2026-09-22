@@ -49,6 +49,7 @@ export default function DashboardPage() {
       year: "Year 1",
       semester: "Semester 1",
       type: "Lecture Notes",
+      likes: 126,
     },
     {
       id: 2,
@@ -58,6 +59,7 @@ export default function DashboardPage() {
       year: "Year 2",
       semester: "Semester 1",
       type: "Lecture Notes",
+      likes: 94,
     },
     {
       id: 3,
@@ -67,6 +69,7 @@ export default function DashboardPage() {
       year: "Year 1",
       semester: "Semester 2",
       type: "Past Question Paper",
+      likes: 173,
     },
     {
       id: 4,
@@ -76,6 +79,7 @@ export default function DashboardPage() {
       year: "Year 2",
       semester: "Semester 1",
       type: "Assignment",
+      likes: 58,
     },
     {
       id: 5,
@@ -85,6 +89,7 @@ export default function DashboardPage() {
       year: "Year 2",
       semester: "Semester 1",
       type: "Tutorial",
+      likes: 88,
     },
     {
       id: 6,
@@ -94,6 +99,7 @@ export default function DashboardPage() {
       year: "Year 2",
       semester: "Semester 1",
       type: "Quiz",
+      likes: 141,
     },
     {
       id: 7,
@@ -103,6 +109,7 @@ export default function DashboardPage() {
       year: "Year 2",
       semester: "Semester 2",
       type: "Lab Material",
+      likes: 72,
     },
     {
       id: 8,
@@ -112,6 +119,7 @@ export default function DashboardPage() {
       year: "Year 1",
       semester: "Semester 2",
       type: "Study Guide",
+      likes: 110,
     },
     {
       id: 9,
@@ -121,6 +129,7 @@ export default function DashboardPage() {
       year: "Year 3",
       semester: "Semester 1",
       type: "Other",
+      likes: 46,
     },
   ];
 
@@ -147,6 +156,17 @@ export default function DashboardPage() {
 
     return matchesSearch && matchesMenu;
   });
+
+  // ================= HOME DISPLAY =================
+  // Home shows only the 4 most-liked resources.
+  // If the student searches, matching search results are shown instead.
+
+  const displayedResources =
+    activeMenu === "Home" && search.trim() === ""
+      ? [...resources]
+          .sort((a, b) => b.likes - a.likes)
+          .slice(0, 4)
+      : filteredResources;
 
   // ================= SAVE RESOURCE =================
 
@@ -265,6 +285,7 @@ export default function DashboardPage() {
         {/* ================= SIDEBAR BOTTOM ================= */}
 
         <div className="border-t border-[#e3e6e8] bg-white p-3">
+
           <button
             onClick={() => setActiveMenu("Settings")}
             className={`w-full rounded-md px-3 py-2 text-left text-[14px] ${
@@ -276,8 +297,8 @@ export default function DashboardPage() {
             Settings
           </button>
 
-          <button
-            onClick={() => setActiveMenu("Profile")}
+          <Link
+            href="/profile"
             className="mt-1 flex w-full items-center gap-3 rounded-md px-3 py-2 hover:bg-[#f3f5f6]"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#30363b] text-[12px] font-semibold text-white">
@@ -285,6 +306,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="text-left">
+
               <p className="text-[13px] font-medium text-[#30363b]">
                 Profile
               </p>
@@ -292,9 +314,13 @@ export default function DashboardPage() {
               <p className="text-[10px] text-[#8b9298]">
                 CST Student
               </p>
+
             </div>
-          </button>
+
+          </Link>
+
         </div>
+
       </aside>
 
       {/* =====================================================
@@ -306,7 +332,9 @@ export default function DashboardPage() {
         {/* ================= TOP BAR ================= */}
 
         <header className="flex h-[64px] items-center justify-end border-b border-[#dfe3e6] bg-white px-8">
+
           <div className="flex items-center gap-5">
+
             <button
               className="text-[14px] text-[#60676d] hover:text-[#0f6fc6]"
               title="Notifications"
@@ -317,6 +345,7 @@ export default function DashboardPage() {
             <div className="h-6 w-px bg-[#dfe3e6]" />
 
             <div className="flex items-center gap-3">
+
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0f6fc6] text-[12px] font-semibold text-white">
                 N
               </div>
@@ -324,8 +353,11 @@ export default function DashboardPage() {
               <span className="text-[13px] font-medium text-[#343a40]">
                 Student
               </span>
+
             </div>
+
           </div>
+
         </header>
 
         {/* ================= PAGE CONTENT ================= */}
@@ -335,6 +367,7 @@ export default function DashboardPage() {
           {/* WELCOME */}
 
           <div className="text-center">
+
             <h2 className="text-[34px] font-bold tracking-[-0.5px] text-[#202529]">
               Welcome to{" "}
               <span className="text-[#0f6fc6]">
@@ -345,12 +378,15 @@ export default function DashboardPage() {
             <p className="mt-2 text-[14px] text-[#697077]">
               Find notes and learning resources from CST students.
             </p>
+
           </div>
 
           {/* ================= SEARCH ================= */}
 
           <div className="mx-auto mt-8 max-w-[650px]">
+
             <div className="relative">
+
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a9197]">
                 ⌕
               </span>
@@ -358,22 +394,29 @@ export default function DashboardPage() {
               <input
                 type="text"
                 value={search}
-                onChange={(event) => setSearch(event.target.value)}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
                 placeholder="Search notes, modules, programmes, resource types..."
                 className="w-full rounded-lg border border-[#aeb5ba] bg-white py-3 pl-11 pr-4 text-[14px] outline-none placeholder:text-[#969ca1] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
               />
+
             </div>
+
           </div>
 
           {/* ================= RESOURCE TYPE QUICK ACCESS ================= */}
 
           <div className="mx-auto mt-8 max-w-[1200px]">
+
             <p className="mb-3 text-[13px] font-medium text-[#60676d]">
               Browse by resource type
             </p>
 
             <div className="flex flex-wrap gap-2">
+
               {resourceTypes.map((type) => (
+
                 <button
                   key={type}
                   onClick={() => setActiveMenu(type)}
@@ -385,8 +428,11 @@ export default function DashboardPage() {
                 >
                   {type}
                 </button>
+
               ))}
+
             </div>
+
           </div>
 
           {/* ================= RESOURCES ================= */}
@@ -394,50 +440,74 @@ export default function DashboardPage() {
           <section className="mx-auto mt-10 max-w-[1200px]">
 
             <div className="mb-5 flex items-end justify-between">
+
               <div>
+
                 <h3 className="text-[20px] font-bold text-[#202529]">
                   {activeMenu === "Home"
-                    ? "Available Resources"
+                    ? search.trim()
+                      ? "Search Results"
+                      : "Popular Resources"
                     : activeMenu}
                 </h3>
 
                 <p className="mt-1 text-[13px] text-[#70777d]">
                   {activeMenu === "Home"
-                    ? "Browse recently available study materials."
+                    ? search.trim()
+                      ? "Resources matching your search."
+                      : "Most liked resources from the CST student community."
                     : resourceTypes.includes(activeMenu)
                     ? `Browse available ${activeMenu.toLowerCase()}.`
                     : programmes.includes(activeMenu)
                     ? `Browse resources shared for ${activeMenu}.`
                     : `Manage your ${activeMenu.toLowerCase()}.`}
                 </p>
+
               </div>
 
               {(activeMenu === "Home" ||
                 resourceTypes.includes(activeMenu) ||
                 programmes.includes(activeMenu)) && (
-                <button className="text-[13px] font-medium text-[#0f6fc6] hover:underline">
+
+                <Link
+                  href="/resources"
+                  className="text-[13px] font-medium text-[#0f6fc6] hover:underline"
+                >
                   View all →
-                </button>
+                </Link>
+
               )}
+
             </div>
 
             {/* ================= RESOURCE CARDS ================= */}
 
-            {activeMenu !== "Settings" && activeMenu !== "Profile" ? (
-              filteredResources.length > 0 ? (
+            {activeMenu !== "Settings" &&
+            activeMenu !== "Profile" ? (
+
+              displayedResources.length > 0 ? (
+
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  {filteredResources.map((resource) => (
+
+                  {displayedResources.map((resource) => (
+
                     <article
                       key={resource.id}
-                      className="flex min-h-[240px] flex-col rounded-xl border border-[#dfe3e6] bg-white p-4 transition hover:border-[#b9c0c5] hover:shadow-sm"
+                      className="flex min-h-[255px] flex-col rounded-xl border border-[#dfe3e6] bg-white p-4 transition hover:border-[#b9c0c5] hover:shadow-sm"
                     >
 
-                      {/* RESOURCE TYPE */}
+                      {/* RESOURCE TYPE + LIKES */}
 
-                      <div className="mb-3">
+                      <div className="mb-3 flex items-center justify-between gap-3">
+
                         <span className="rounded-md bg-[#e8f3fb] px-2.5 py-1 text-[10px] font-medium text-[#0f6fc6]">
                           {resource.type}
                         </span>
+
+                        <span className="text-[11px] text-[#747b81]">
+                          ♥ {resource.likes}
+                        </span>
+
                       </div>
 
                       {/* TITLE */}
@@ -461,27 +531,50 @@ export default function DashboardPage() {
                       {/* YEAR + SEMESTER */}
 
                       <div className="mt-2 flex items-center justify-between gap-3 text-[10px] text-[#8b9298]">
-                        <span>{resource.year}</span>
-                        <span>{resource.semester}</span>
+
+                        <span>
+                          {resource.year}
+                        </span>
+
+                        <span>
+                          {resource.semester}
+                        </span>
+
                       </div>
 
                       <div className="flex-1" />
 
-                      {/* BUTTONS */}
+                      {/* ================= BUTTONS ================= */}
 
                       <div className="mt-4 border-t border-[#e6e8ea] pt-3">
+
                         <div className="grid grid-cols-[1fr_1fr_38px] gap-2">
 
-                          <button className="rounded-md bg-[#0f6fc6] px-3 py-2 text-[12px] font-medium text-white hover:bg-[#0b5fae]">
-                            View
-                          </button>
+                          {/* VIEW */}
 
-                          <button className="rounded-md border border-[#d4d8db] bg-white px-3 py-2 text-[12px] text-[#555c62] hover:bg-[#f6f7f8]">
+                          <Link
+                            href={`/resources/${resource.id}`}
+                            className="rounded-md bg-[#0f6fc6] px-3 py-2 text-center text-[12px] font-medium text-white hover:bg-[#0b5fae]"
+                          >
+                            View
+                          </Link>
+
+                          {/* DOWNLOAD */}
+
+                          <button
+                            type="button"
+                            className="rounded-md border border-[#d4d8db] bg-white px-3 py-2 text-[12px] text-[#555c62] hover:bg-[#f6f7f8]"
+                          >
                             Download
                           </button>
 
+                          {/* SAVE */}
+
                           <button
-                            onClick={() => toggleSaved(resource.id)}
+                            type="button"
+                            onClick={() =>
+                              toggleSaved(resource.id)
+                            }
                             title="Save resource"
                             className={`rounded-md border px-2 py-2 text-[14px] ${
                               savedResources.includes(resource.id)
@@ -495,12 +588,19 @@ export default function DashboardPage() {
                           </button>
 
                         </div>
+
                       </div>
+
                     </article>
+
                   ))}
+
                 </div>
+
               ) : (
+
                 <div className="rounded-xl border border-[#dfe3e6] bg-white px-6 py-14 text-center">
+
                   <p className="text-[16px] font-semibold text-[#343a40]">
                     No resources found
                   </p>
@@ -518,26 +618,37 @@ export default function DashboardPage() {
                   >
                     View All Resources
                   </button>
+
                 </div>
+
               )
+
             ) : (
 
               /* SETTINGS / PROFILE PLACEHOLDER */
 
               <div className="rounded-xl border border-[#dfe3e6] bg-white px-6 py-14 text-center">
+
                 <p className="text-[18px] font-semibold text-[#343a40]">
                   {activeMenu}
                 </p>
 
                 <p className="mt-2 text-[13px] text-[#747b81]">
-                  We will design this section after completing the main student dashboard.
+                  We will design this section after completing the main
+                  student dashboard.
                 </p>
+
               </div>
 
             )}
+
           </section>
+
         </div>
+
       </div>
+
     </main>
   );
 }
+
