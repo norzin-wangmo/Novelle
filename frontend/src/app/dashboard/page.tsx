@@ -163,9 +163,7 @@ export default function DashboardPage() {
 
   const displayedResources =
     activeMenu === "Home" && search.trim() === ""
-      ? [...resources]
-          .sort((a, b) => b.likes - a.likes)
-          .slice(0, 4)
+      ? [...resources].sort((a, b) => b.likes - a.likes).slice(0, 4)
       : filteredResources;
 
   // ================= SAVE RESOURCE =================
@@ -180,13 +178,11 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen bg-[#f4f5f7] text-[#202529]">
-
       {/* =====================================================
           SIDEBAR
       ===================================================== */}
 
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-[245px] flex-col border-r border-[#dfe3e6] bg-white">
-
         {/* LOGO */}
 
         <div className="border-b border-[#e5e8ea] px-5 py-5">
@@ -212,7 +208,6 @@ export default function DashboardPage() {
         {/* SCROLLABLE SIDEBAR */}
 
         <div className="flex-1 overflow-y-auto px-3 py-5">
-
           {/* HOME */}
 
           <button
@@ -248,9 +243,20 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          {/* UPLOAD */}
+          {/* ================= SAVED RESOURCES ================= */}
 
           <div className="mt-3 border-t border-[#edf0f2] pt-3">
+            <Link
+              href="/saved"
+              className="block rounded-md px-3 py-2 text-[13px] font-medium text-[#555c62] hover:bg-[#f3f5f6] hover:text-[#0f6fc6]"
+            >
+              ♡ Saved Resources
+            </Link>
+          </div>
+
+          {/* UPLOAD */}
+
+          <div className="mt-1">
             <Link
               href="/upload"
               className="block rounded-md px-3 py-2 text-[13px] font-medium text-[#0f6fc6] hover:bg-[#f1f7fb]"
@@ -285,7 +291,6 @@ export default function DashboardPage() {
         {/* ================= SIDEBAR BOTTOM ================= */}
 
         <div className="border-t border-[#e3e6e8] bg-white p-3">
-
           <Link
             href="/settings"
             className="block w-full rounded-md px-3 py-2 text-left text-[14px] text-[#555c62] hover:bg-[#f3f5f6]"
@@ -302,7 +307,6 @@ export default function DashboardPage() {
             </div>
 
             <div className="text-left">
-
               <p className="text-[13px] font-medium text-[#30363b]">
                 Profile
               </p>
@@ -310,13 +314,9 @@ export default function DashboardPage() {
               <p className="text-[10px] text-[#8b9298]">
                 CST Student
               </p>
-
             </div>
-
           </Link>
-
         </div>
-
       </aside>
 
       {/* =====================================================
@@ -324,13 +324,10 @@ export default function DashboardPage() {
       ===================================================== */}
 
       <div className="ml-[245px] min-h-screen">
-
         {/* ================= TOP BAR ================= */}
 
         <header className="flex h-[64px] items-center justify-end border-b border-[#dfe3e6] bg-white px-8">
-
           <div className="flex items-center gap-5">
-
             <Link
               href="/notifications"
               className="text-[14px] text-[#60676d] hover:text-[#0f6fc6]"
@@ -342,7 +339,6 @@ export default function DashboardPage() {
             <div className="h-6 w-px bg-[#dfe3e6]" />
 
             <div className="flex items-center gap-3">
-
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0f6fc6] text-[12px] font-semibold text-white">
                 N
               </div>
@@ -350,21 +346,16 @@ export default function DashboardPage() {
               <span className="text-[13px] font-medium text-[#343a40]">
                 Student
               </span>
-
             </div>
-
           </div>
-
         </header>
 
         {/* ================= PAGE CONTENT ================= */}
 
         <div className="px-8 py-10 lg:px-10">
-
           {/* WELCOME */}
 
           <div className="text-center">
-
             <h2 className="text-[34px] font-bold tracking-[-0.5px] text-[#202529]">
               Welcome to{" "}
               <span className="text-[#0f6fc6]">
@@ -375,15 +366,12 @@ export default function DashboardPage() {
             <p className="mt-2 text-[14px] text-[#697077]">
               Find notes and learning resources from CST students.
             </p>
-
           </div>
 
           {/* ================= SEARCH ================= */}
 
           <div className="mx-auto mt-8 max-w-[650px]">
-
             <div className="relative">
-
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a9197]">
                 ⌕
               </span>
@@ -397,23 +385,18 @@ export default function DashboardPage() {
                 placeholder="Search notes, modules, programmes, resource types..."
                 className="w-full rounded-lg border border-[#aeb5ba] bg-white py-3 pl-11 pr-4 text-[14px] outline-none placeholder:text-[#969ca1] focus:border-[#0f6fc6] focus:ring-1 focus:ring-[#0f6fc6]"
               />
-
             </div>
-
           </div>
 
           {/* ================= RESOURCE TYPE QUICK ACCESS ================= */}
 
           <div className="mx-auto mt-8 max-w-[1200px]">
-
             <p className="mb-3 text-[13px] font-medium text-[#60676d]">
               Browse by resource type
             </p>
 
             <div className="flex flex-wrap gap-2">
-
               {resourceTypes.map((type) => (
-
                 <button
                   key={type}
                   onClick={() => setActiveMenu(type)}
@@ -425,21 +408,15 @@ export default function DashboardPage() {
                 >
                   {type}
                 </button>
-
               ))}
-
             </div>
-
           </div>
 
           {/* ================= RESOURCES ================= */}
 
           <section className="mx-auto mt-10 max-w-[1200px]">
-
             <div className="mb-5 flex items-end justify-between">
-
               <div>
-
                 <h3 className="text-[20px] font-bold text-[#202529]">
                   {activeMenu === "Home"
                     ? search.trim()
@@ -459,44 +436,34 @@ export default function DashboardPage() {
                     ? `Browse resources shared for ${activeMenu}.`
                     : `Manage your ${activeMenu.toLowerCase()}.`}
                 </p>
-
               </div>
 
               {(activeMenu === "Home" ||
                 resourceTypes.includes(activeMenu) ||
                 programmes.includes(activeMenu)) && (
-
                 <Link
                   href="/resources"
                   className="text-[13px] font-medium text-[#0f6fc6] hover:underline"
                 >
                   View all →
                 </Link>
-
               )}
-
             </div>
 
             {/* ================= RESOURCE CARDS ================= */}
 
             {activeMenu !== "Settings" &&
             activeMenu !== "Profile" ? (
-
               displayedResources.length > 0 ? (
-
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-
                   {displayedResources.map((resource) => (
-
                     <article
                       key={resource.id}
                       className="flex min-h-[255px] flex-col rounded-xl border border-[#dfe3e6] bg-white p-4 transition hover:border-[#b9c0c5] hover:shadow-sm"
                     >
-
                       {/* RESOURCE TYPE + LIKES */}
 
                       <div className="mb-3 flex items-center justify-between gap-3">
-
                         <span className="rounded-md bg-[#e8f3fb] px-2.5 py-1 text-[10px] font-medium text-[#0f6fc6]">
                           {resource.type}
                         </span>
@@ -504,7 +471,6 @@ export default function DashboardPage() {
                         <span className="text-[11px] text-[#747b81]">
                           ♥ {resource.likes}
                         </span>
-
                       </div>
 
                       {/* TITLE */}
@@ -528,7 +494,6 @@ export default function DashboardPage() {
                       {/* YEAR + SEMESTER */}
 
                       <div className="mt-2 flex items-center justify-between gap-3 text-[10px] text-[#8b9298]">
-
                         <span>
                           {resource.year}
                         </span>
@@ -536,7 +501,6 @@ export default function DashboardPage() {
                         <span>
                           {resource.semester}
                         </span>
-
                       </div>
 
                       <div className="flex-1" />
@@ -544,9 +508,7 @@ export default function DashboardPage() {
                       {/* ================= BUTTONS ================= */}
 
                       <div className="mt-4 border-t border-[#e6e8ea] pt-3">
-
                         <div className="grid grid-cols-[1fr_1fr_38px] gap-2">
-
                           {/* VIEW */}
 
                           <Link
@@ -583,21 +545,13 @@ export default function DashboardPage() {
                               ? "♥"
                               : "♡"}
                           </button>
-
                         </div>
-
                       </div>
-
                     </article>
-
                   ))}
-
                 </div>
-
               ) : (
-
                 <div className="rounded-xl border border-[#dfe3e6] bg-white px-6 py-14 text-center">
-
                   <p className="text-[16px] font-semibold text-[#343a40]">
                     No resources found
                   </p>
@@ -615,17 +569,12 @@ export default function DashboardPage() {
                   >
                     View All Resources
                   </button>
-
                 </div>
-
               )
-
             ) : (
-
               /* SETTINGS / PROFILE PLACEHOLDER */
 
               <div className="rounded-xl border border-[#dfe3e6] bg-white px-6 py-14 text-center">
-
                 <p className="text-[18px] font-semibold text-[#343a40]">
                   {activeMenu}
                 </p>
@@ -634,17 +583,11 @@ export default function DashboardPage() {
                   We will design this section after completing the main
                   student dashboard.
                 </p>
-
               </div>
-
             )}
-
           </section>
-
         </div>
-
       </div>
-
     </main>
   );
 }
