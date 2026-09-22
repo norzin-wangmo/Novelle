@@ -286,16 +286,12 @@ export default function DashboardPage() {
 
         <div className="border-t border-[#e3e6e8] bg-white p-3">
 
-          <button
-            onClick={() => setActiveMenu("Settings")}
-            className={`w-full rounded-md px-3 py-2 text-left text-[14px] ${
-              activeMenu === "Settings"
-                ? "bg-[#dcecff] text-[#0f6fc6]"
-                : "text-[#555c62] hover:bg-[#f3f5f6]"
-            }`}
+          <Link
+            href="/settings"
+            className="block w-full rounded-md px-3 py-2 text-left text-[14px] text-[#555c62] hover:bg-[#f3f5f6]"
           >
             Settings
-          </button>
+          </Link>
 
           <Link
             href="/profile"
@@ -651,4 +647,3 @@ export default function DashboardPage() {
     </main>
   );
 }
-
